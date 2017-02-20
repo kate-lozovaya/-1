@@ -1,0 +1,21 @@
+#include "stdafx.h"
+#include "iostream"
+int _tmain(int argc, _TCHAR* argv[])
+{
+	std::cout << "bool " << sizeof(bool) << " byte" << std::endl;
+	std::cout << "char " << sizeof(char) << " byte" << std::endl;
+	std::cout << "char16_t " << sizeof(char16_t) << " byte" << std::endl;
+	std::cout << "char32_t " << sizeof(char32_t) << " byte" << std::endl;
+	std::cout << "wchar_t " << sizeof(wchar_t) << " byte" << std::endl;
+	std::cout << "_SHORT_SIZE " << sizeof(_SHORT_SIZE) << " byte" << std::endl;
+	std::cout << "int " << sizeof(int) << " byte" << std::endl;
+	std::cout << "long " << sizeof(long) << " byte" << std::endl;
+	std::cout << "long long " << sizeof(long long) << " byte" << std::endl << std::endl;
+	std::cout << "float " << sizeof(float) << " byte" << std::endl;
+	std::cout << "double " << sizeof(double) << " byte" << std::endl;
+	std::cout << "long double " << sizeof(long double) << " byte" << std::endl << std::endl;
+	std::cout << "void " << sizeof(void*) << " byte" << std::endl;
+	std::cout << "nullptr_t " << sizeof(nullptr_t) << " byte" << std::endl << std::endl;
+	system("pause");
+	return 0;
+}
