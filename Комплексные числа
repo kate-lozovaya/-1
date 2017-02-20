@@ -1,0 +1,100 @@
+#include "stdafx.h"
+#include "iostream"
+
+class TComplex
+{
+private:
+	double real, imaginary, b, c;
+public:
+	TComplex()
+	{
+		real = 0;
+		imaginary = 0;
+	}
+	TComplex(double b, double c)
+	{
+		real = b;
+		imaginary = c;
+	}
+	void setTComplex()
+	{
+		std::cout << "Enter the real part of the complex number ";
+		std::cin >> real;
+		std::cout << "Enter the imaginary part of the complex number ";
+		std::cin >> imaginary;
+		std::cout << std::endl;
+	}
+	void print(std::ostream&steam)
+	{
+		if (imaginary > 0)
+		{
+			std::cout << real << " + " << imaginary << "*i" << std::endl;
+		}
+		else
+		{
+			if (imaginary == 0)
+				std::cout << real << std::endl;
+			else
+				std::cout << real << " - " << imaginary << "*i" << std::endl;
+		}
+	}
+	void add(TComplex a)
+	{
+		real += a.real;
+		imaginary += a.imaginary;
+	}
+	void sub(TComplex a)
+	{
+		real -= a.real;
+		imaginary -= a.imaginary;
+	}
+	void multiplication(int a)
+	{
+		real *= a;
+		imaginary *= a;
+	}
+	void division(int a)
+	{
+		real /= a;
+		imaginary /= a;
+	}
+};
+
+int main()
+{
+	int a;
+	double real = 0, imaginary = 0;
+	TComplex s1, s2, b, c;
+	s1.setTComplex();
+	s2.setTComplex();
+	b = s1;
+	c = s2;
+	do 
+	{
+		std::cout << "Enter the integral number ";
+		std::cin >> a;
+	} while (a == 0);
+	s1.add(s2);
+	std::cout << std::endl << "Sum ";
+	s1.print(std::cout);
+	s1 = b;
+	b.sub(s2);
+	std::cout << std::endl << "Difference ";
+	b.print(std::cout);
+	b = s1;
+	s1.multiplication(a);
+	std::cout << std::endl << "Product (first number) ";
+	s1.print(std::cout);
+	s1 = b;
+	b.division(a);
+	std::cout << std::endl << "Quotient (first number) ";
+	b.print(std::cout);
+	s2.multiplication(a);
+	std::cout << std::endl << "Product (second number) ";
+	s2.print(std::cout);
+	c.division(a);
+	std::cout << std::endl << "Quotient (second number) ";
+	c.print(std::cout);
+	system("pause");
+	return 0;
+}
