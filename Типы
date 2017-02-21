@@ -14,7 +14,6 @@ int _tmain(int argc, _TCHAR* argv[])
 	std::cout << "float " << sizeof(float) << " byte" << std::endl;
 	std::cout << "double " << sizeof(double) << " byte" << std::endl;
 	std::cout << "long double " << sizeof(long double) << " byte" << std::endl << std::endl;
-	std::cout << "void " << sizeof(void*) << " byte" << std::endl;
 	std::cout << "nullptr_t " << sizeof(nullptr_t) << " byte" << std::endl << std::endl;
 	system("pause");
 	return 0;
