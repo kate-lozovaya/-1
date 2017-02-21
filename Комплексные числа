@@ -1,10 +1,10 @@
-#include "stdafx.h"
+
 #include "iostream"
 
 class TComplex
 {
 private:
-	double real, imaginary, b, c;
+	double real, imaginary;
 public:
 	TComplex()
 	{
@@ -16,7 +16,7 @@ public:
 		real = b;
 		imaginary = c;
 	}
-	void setTComplex()
+    void setTComplex()
 	{
 		std::cout << "Enter the real part of the complex number ";
 		std::cin >> real;
@@ -35,25 +35,25 @@ public:
 			if (imaginary == 0)
 				std::cout << real << std::endl;
 			else
-				std::cout << real << " - " << imaginary << "*i" << std::endl;
+				std::cout << real << " " << imaginary << "*i" << std::endl;
 		}
 	}
-	void add(TComplex a)
+	const void add(TComplex a) 
 	{
 		real += a.real;
 		imaginary += a.imaginary;
 	}
-	void sub(TComplex a)
+	const void sub(TComplex a)
 	{
 		real -= a.real;
 		imaginary -= a.imaginary;
 	}
-	void multiplication(int a)
+	const void multiplication(int a)
 	{
 		real *= a;
 		imaginary *= a;
 	}
-	void division(int a)
+	const void division(int a)
 	{
 		real /= a;
 		imaginary /= a;
@@ -63,7 +63,6 @@ public:
 int main()
 {
 	int a;
-	double real = 0, imaginary = 0;
 	TComplex s1, s2, b, c;
 	s1.setTComplex();
 	s2.setTComplex();
@@ -77,15 +76,15 @@ int main()
 	s1.add(s2);
 	std::cout << std::endl << "Sum ";
 	s1.print(std::cout);
-	s1 = b;
+	//s1 = b;
 	b.sub(s2);
 	std::cout << std::endl << "Difference ";
 	b.print(std::cout);
-	b = s1;
+	//b = s1;
 	s1.multiplication(a);
 	std::cout << std::endl << "Product (first number) ";
 	s1.print(std::cout);
-	s1 = b;
+	//s1 = b;
 	b.division(a);
 	std::cout << std::endl << "Quotient (first number) ";
 	b.print(std::cout);
