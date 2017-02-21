@@ -30,29 +30,29 @@ public:
 	{
 		if (imaginary > 0)
 		{
-			std::cout << real << " + " << imaginary << "*i" << std::endl;
+			steam << real << " + " << imaginary << "*i" << std::endl;
 		}
 		else
 		{
 			if (imaginary == 0)
-				std::cout << real << std::endl;
+				steam << real << std::endl;
 			else
-				std::cout << real << " " << imaginary << "*i" << std::endl;
+				steam << real << " " << imaginary << "*i" << std::endl;
 		}
 	}
-	TComplex add(TComplex a) 
+	TComplex add(TComplex a) const
 	{
 		return TComplex(real+a.real, imaginary+a.imaginary);
 	}
-	TComplex sub(TComplex a)
+	TComplex sub(TComplex a) const
 	{
 		return TComplex(real-a.real, imaginary-a.imaginary);
 	}
-	TComplex multiplication(int a)
+	TComplex multiplication(int a) const
 	{
 		return TComplex(real*a, imaginary*a);
 	}
-	TComplex division(int a)
+	TComplex division(int a) const
 	{
 		return TComplex(real/a, imaginary/a);
 	}
