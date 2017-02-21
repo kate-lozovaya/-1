@@ -1,3 +1,5 @@
+// Example program
+
 
 #include "iostream"
 
@@ -38,62 +40,53 @@ public:
 				std::cout << real << " " << imaginary << "*i" << std::endl;
 		}
 	}
-	const void add(TComplex a) 
+	TComplex add(TComplex a) 
 	{
-		real += a.real;
-		imaginary += a.imaginary;
+		return TComplex(real+a.real, imaginary+a.imaginary);
 	}
-	const void sub(TComplex a)
+	TComplex sub(TComplex a)
 	{
-		real -= a.real;
-		imaginary -= a.imaginary;
+		return TComplex(real-a.real, imaginary-a.imaginary);
 	}
-	const void multiplication(int a)
+	TComplex multiplication(int a)
 	{
-		real *= a;
-		imaginary *= a;
+		return TComplex(real*a, imaginary*a);
 	}
-	const void division(int a)
+	TComplex division(int a)
 	{
-		real /= a;
-		imaginary /= a;
+		return TComplex(real/a, imaginary/a);
 	}
 };
 
 int main()
 {
 	int a;
-	TComplex s1, s2, b, c;
+	TComplex s1, s2, b;
 	s1.setTComplex();
 	s2.setTComplex();
-	b = s1;
-	c = s2;
 	do 
 	{
 		std::cout << "Enter the integral number ";
 		std::cin >> a;
 	} while (a == 0);
-	s1.add(s2);
+	b=s1.add(s2);
 	std::cout << std::endl << "Sum ";
-	s1.print(std::cout);
-	//s1 = b;
-	b.sub(s2);
+	b.print(std::cout);
+	b = s1.sub(s2);
 	std::cout << std::endl << "Difference ";
 	b.print(std::cout);
-	//b = s1;
-	s1.multiplication(a);
+	b = s1.multiplication(a);
 	std::cout << std::endl << "Product (first number) ";
-	s1.print(std::cout);
-	//s1 = b;
-	b.division(a);
+	b.print(std::cout);
+	b = s1.division(a);
 	std::cout << std::endl << "Quotient (first number) ";
 	b.print(std::cout);
-	s2.multiplication(a);
+	b = s2.multiplication(a);
 	std::cout << std::endl << "Product (second number) ";
-	s2.print(std::cout);
-	c.division(a);
+	b.print(std::cout);
+	b = s2.division(a);
 	std::cout << std::endl << "Quotient (second number) ";
-	c.print(std::cout);
+	b.print(std::cout);
 	system("pause");
 	return 0;
 }
