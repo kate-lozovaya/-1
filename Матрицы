@@ -1,0 +1,145 @@
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+#include <fstream>
+using namespace std;
+
+class Matrix
+{
+private:
+	int line, column, **A;
+
+public:
+	Matrix(void)
+	{
+		line = column = 0;
+	}
+	Matrix(int a, int b)
+	{
+		line = a;
+		column = b;
+		A = new int*[line];
+		for (int i = 0; i < line; ++i)
+		{
+			A[i] = new int[column];
+			//for (int j = 0; j < column; ++j)
+				//A[i][j] = 0;
+		}
+	}
+	void scan(string filename)
+	{
+		int number = 0;
+		ifstream fin;
+		fin.open(filename);
+		if (!fin.is_open())
+			cout << "The file isn't find" << endl;
+		else
+		{
+			A = new int*[line];
+			for (int i = 0; i < line; ++i)
+			{
+				A[i] = new int[column];
+				for (int j = 0; j < column; ++j)
+				{
+					if (fin.eof())
+					{
+						A[i][j] = 0;
+					}
+					else
+					{
+						fin >> number;
+						A[i][j] = number;
+					}
+				}
+			}
+		}
+		fin.close();
+	}
+	~Matrix()
+	{
+		delete[]A;
+	}
+	void print(ostream&steam)
+	{
+		A = new int*[line];
+		for (int i = 0; i < line; ++i)
+		{
+			A[i] = new int[column];
+			for (int j = 0; j < column; ++j)
+				steam << A[i][j];
+			steam << endl;
+		}
+	}
+	Matrix operator+ (Matrix B)
+	{
+		for (int i = 0; i < line; ++i)
+		for (int j = 0; j < column; ++j)
+			A[i][j] += B.A[i][j];
+		return *this;
+	}
+	Matrix operator * (Matrix B)
+	{
+		for (int i = 0; i < line; ++i)
+		for (int j = 0; j < B.column; ++j)
+		for (int k = 0; k < column; ++j)
+			A[i][j] += A[i][k] * B.A[k][j];
+		return *this;
+	}
+};
+
+int main()
+{
+	/*int number = 0;
+	ofstream fout("file.txt");
+	for (int i = 0; i < 100; ++i)
+	{
+		cin >> number;
+		fout << number<<" ";
+	}
+	fout.close();*/
+	Matrix m1, m2;
+	int line, column;
+	string filename;
+	cout << "ADDITION" << endl << "Enter the number of lines ";
+	cin >> line;
+	cout << "Enter the number of columns ";
+	cin >> column;
+	m1 = m2 = Matrix(line, column);
+	cout << "Enter the file name for the first matrix" << endl;
+	cin >> filename;
+	m1.scan(filename);
+	cout << "Enter the file name for the second matrix" << endl;
+	cin >> filename;
+	m2.scan(filename);
+	cout << endl << "The first matrix" << endl;
+	m1.print(cout);
+	cout << endl << "The second matrix" << endl;
+	m2.print(cout);
+	m1 = m1 + m2;
+	cout << endl << "Result" << endl;
+	m1.print(cout);
+	cout << endl << endl << "MULTIPLICATION" << endl << "Enter the number of lines of the first matrix ";
+	cin >> line;
+	cout << "Enter the number of columns of the first matrix (the number of lines of the second matrix) ";
+	cin >> column;
+	m1 = Matrix(line, column);
+	line = column;
+	cout << "Enter the number of columns of the second matrix ";
+	cin >> column;
+	m2 = Matrix(line, column);
+	cout << "Enter the file name for the first matrix" << endl;
+	cin >> filename;
+	m1.scan(filename);
+	cout << "Enter the file name for the second matrix" << endl;
+	cin >> filename;
+	m2.scan(filename);
+	cout << "The first matrix" << endl;
+	m1.print(cout);
+	cout << "The second matrix" << endl;
+	m2.print(cout);
+	m1 = m1*m2;
+	cout << "Result" << endl;
+	m1.print(cout);
+	system("pause");
+	return 0;
+}
