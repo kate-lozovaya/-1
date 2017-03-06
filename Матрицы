@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -14,18 +13,16 @@ public:
 	{
 		line = column = 0;
 	}
+
 	Matrix(int a, int b)
 	{
 		line = a;
 		column = b;
 		A = new int*[line];
 		for (int i = 0; i < line; ++i)
-		{
 			A[i] = new int[column];
-			//for (int j = 0; j < column; ++j)
-				//A[i][j] = 0;
-		}
 	}
+
 	void scan(string filename)
 	{
 		int number = 0;
@@ -55,18 +52,18 @@ public:
 		}
 		fin.close();
 	}
+
 	~Matrix()
 	{
 		delete[]A;
 	}
-	void print(ostream&steam)
+
+	void print(ostream&steam)const
 	{
-		A = new int*[line];
 		for (int i = 0; i < line; ++i)
 		{
-			A[i] = new int[column];
 			for (int j = 0; j < column; ++j)
-				steam << A[i][j];
+				steam << A[i][j] << " ";
 			steam << endl;
 		}
 	}
