@@ -6,12 +6,13 @@ using namespace std;
 class Matrix
 {
 private:
-	int line, column, **A;
-
+	int line, column;
+	int**A;
 public:
-	Matrix(void)
+	Matrix()
 	{
 		line = column = 0;
+		this->A = nullptr;
 	}
 
 	Matrix(int a, int b)
@@ -20,7 +21,29 @@ public:
 		column = b;
 		A = new int*[line];
 		for (int i = 0; i < line; ++i)
+		{
 			A[i] = new int[column];
+			for (int j = 0; j < column; ++j)
+				A[i][j] = 0;
+		}
+	}
+
+	Matrix(const Matrix &C)
+	{
+		line = C.line;
+		column = C.column;
+		A = new int*[line];
+		for (int i = 0; i < line; ++i)
+		{
+			A[i] = new int[column];
+			for (int j = 0; j < column; ++j)
+				A[i][j] = C.A[i][j];
+		}
+	}
+	
+	~Matrix()
+	{
+		delete[]A;
 	}
 
 	void scan(string filename)
@@ -53,11 +76,6 @@ public:
 		fin.close();
 	}
 
-	~Matrix()
-	{
-		delete[]A;
-	}
-
 	void print(ostream&steam)const
 	{
 		for (int i = 0; i < line; ++i)
@@ -67,20 +85,26 @@ public:
 			steam << endl;
 		}
 	}
-	Matrix operator+ (Matrix B)
+
+	Matrix operator+ (Matrix B)const
 	{
+		Matrix C(line, column);
 		for (int i = 0; i < line; ++i)
-		for (int j = 0; j < column; ++j)
-			A[i][j] += B.A[i][j];
-		return *this;
+		{
+			for (int j = 0; j < column; ++j)
+				C.A[i][j] = A[i][j] + B.A[i][j];
+		}
+		return C;
 	}
-	Matrix operator * (Matrix B)
+
+	Matrix operator * (Matrix B)const
 	{
+		Matrix C(line, column);
 		for (int i = 0; i < line; ++i)
 		for (int j = 0; j < B.column; ++j)
 		for (int k = 0; k < column; ++j)
-			A[i][j] += A[i][k] * B.A[k][j];
-		return *this;
+			C.A[i][j] += A[i][k] * B.A[k][j];
+		return C;
 	}
 };
 
