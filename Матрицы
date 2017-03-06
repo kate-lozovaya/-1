@@ -8,6 +8,7 @@ class Matrix
 private:
 	int line, column;
 	int**A;
+
 public:
 	Matrix()
 	{
@@ -43,33 +44,27 @@ public:
 	
 	~Matrix()
 	{
+		for (int i = 0; i < line; ++i)
+			delete[]A[i];
 		delete[]A;
 	}
 
-	void scan(string filename)
+	void scan(string filename)const
 	{
-		int number = 0;
 		ifstream fin;
 		fin.open(filename);
 		if (!fin.is_open())
 			cout << "The file isn't find" << endl;
 		else
 		{
-			A = new int*[line];
 			for (int i = 0; i < line; ++i)
 			{
-				A[i] = new int[column];
 				for (int j = 0; j < column; ++j)
 				{
-					if (fin.eof())
+					if (!fin.eof())
 					{
-						A[i][j] = 0;
-					}
-					else
-					{
-						fin >> number;
-						A[i][j] = number;
-					}
+						fin >> A[i][j];
+					}else A[i][j] = 0;
 				}
 			}
 		}
@@ -102,8 +97,11 @@ public:
 		Matrix C(line, column);
 		for (int i = 0; i < line; ++i)
 		for (int j = 0; j < B.column; ++j)
-		for (int k = 0; k < column; ++j)
-			C.A[i][j] += A[i][k] * B.A[k][j];
+		{
+			C.A[i][j] = 0;
+			for (int k = 0; k < column; ++j)
+				C.A[i][j] += A[i][k] * B.A[k][j];
+		}
 		return C;
 	}
 };
