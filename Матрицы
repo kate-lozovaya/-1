@@ -86,14 +86,6 @@ public:
 
 int main()
 {
-	/*int number = 0;
-	ofstream fout("file.txt");
-	for (int i = 0; i < 100; ++i)
-	{
-		cin >> number;
-		fout << number<<" ";
-	}
-	fout.close();*/
 	Matrix m1, m2;
 	int line, column;
 	string filename;
