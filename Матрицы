@@ -119,9 +119,11 @@ int main()
 	cout << "Enter the file name for the first matrix" << endl;
 	cin >> filename;
 	m1.scan(filename);
+	filename = "";
 	cout << "Enter the file name for the second matrix" << endl;
 	cin >> filename;
 	m2.scan(filename);
+	filename = "";
 	cout << endl << "The first matrix" << endl;
 	m1.print(cout);
 	cout << endl << "The second matrix" << endl;
@@ -141,6 +143,7 @@ int main()
 	cout << "Enter the file name for the first matrix" << endl;
 	cin >> filename;
 	m1.scan(filename);
+	filename = "";
 	cout << "Enter the file name for the second matrix" << endl;
 	cin >> filename;
 	m2.scan(filename);
