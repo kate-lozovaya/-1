@@ -10,112 +10,122 @@ private:
 	int**A;
 
 public:
-	Matrix()
-	{
-		line = column = 0;
-		this->A = nullptr;
-	}
+	Matrix();
+	Matrix(int, int);
+	Matrix(const Matrix &C);
+	~Matrix();
+	void scan(string)const;
+	void print(ostream&steam)const;
+	Matrix& operator= (const Matrix &C);
+	Matrix operator+ (Matrix B)const;
+	Matrix operator * (Matrix B)const;
+};
 
-	Matrix(int a, int b)
+Matrix::Matrix()
+{
+	line = column = 0;
+	this->A = nullptr;
+}
+
+Matrix::Matrix(int a, int b)
+{
+	line = a;
+	column = b;
+	A = new int*[line];
+	for (int i = 0; i < line; ++i)
 	{
-		line = a;
-		column = b;
-		A = new int*[line];
+		A[i] = new int[column];
+		for (int j = 0; j < column; ++j)
+			A[i][j] = 0;
+	}
+}
+
+Matrix::Matrix(const Matrix &C)
+{
+	line = C.line;
+	column = C.column;
+	A = new int*[line];
+	for (int i = 0; i < line; ++i)
+	{
+		A[i] = new int[column];
+		for (int j = 0; j < column; ++j)
+			A[i][j] = C.A[i][j];
+	}
+}
+
+Matrix::~Matrix()
+{
+	for (int i = 0; i < line; ++i)
+		delete[]A[i];
+	delete[]A;
+}
+
+Matrix::void scan(string filename)const
+{
+	ifstream fin;
+	fin.open(filename);
+	if (!fin.is_open())
+		cout << "The file isn't find" << endl;
+	else
+	{
 		for (int i = 0; i < line; ++i)
 		{
-			A[i] = new int[column];
 			for (int j = 0; j < column; ++j)
-				A[i][j] = 0;
-		}
-	}
-
-	Matrix(const Matrix &C)
-	{
-		line = C.line;
-		column = C.column;
-		A = new int*[line];
-		for (int i = 0; i < line; ++i)
-		{
-			A[i] = new int[column];
-			for (int j = 0; j < column; ++j)
-				A[i][j] = C.A[i][j];
-		}
-	}
-	
-	~Matrix()
-	{
-		for (int i = 0; i < line; ++i)
-			delete[]A[i];
-		delete[]A;
-	}
-
-	void scan(string filename)const
-	{
-		ifstream fin;
-		fin.open(filename);
-		if (!fin.is_open())
-			cout << "The file isn't find" << endl;
-		else
-		{
-			for (int i = 0; i < line; ++i)
 			{
-				for (int j = 0; j < column; ++j)
+				if (!fin.eof())
 				{
-					if (!fin.eof())
-					{
-						fin >> A[i][j];
-					}else A[i][j] = 0;
-				}
+					fin >> A[i][j];
+				}else A[i][j] = 0;
 			}
 		}
-		fin.close();
 	}
+	fin.close();
+}
 
-	void print(ostream&steam)const
+Matrix::void print(ostream&steam)const
+{
+	for (int i = 0; i < line; ++i)
 	{
-		for (int i = 0; i < line; ++i)
-		{
-			for (int j = 0; j < column; ++j)
-				steam << A[i][j] << " ";
-			steam << endl;
-		}
+		for (int j = 0; j < column; ++j)
+			steam << A[i][j] << " ";
+		steam << endl;
 	}
-	
-	Matrix operator= (Matrix &C)
-	{
-        for (int i = 0; i < line; ++i)
-			delete[]A[i];
-		delete[]A;
-		for(int i = 0; i < line; ++i)
-            for(int j = 0; j < column; ++j)
-                a[i][j] = C.A[i][j];
-        return *this;
-	}
+}
 
-	Matrix operator+ (Matrix B)const
-	{
-		Matrix C(line, column);
-		for (int i = 0; i < line; ++i)
-		{
-			for (int j = 0; j < column; ++j)
-				C.A[i][j] = A[i][j] + B.A[i][j];
-		}
-		return C;
-	}
+Matrix::Matrix& operator= (const Matrix &C)
+{
+       for (int i = 0; i < line; ++i)
+		delete[]A[i];
+	delete[]A;
+	for(int i = 0; i < line; ++i)
+           for(int j = 0; j < column; ++j)
+               a[i][j] = C.A[i][j];
+       return *this;
+}
 
-	Matrix operator * (Matrix B)const
+Matrix::Matrix operator+ (Matrix B)const
+{
+	Matrix C(line, column);
+	for (int i = 0; i < line; ++i)
 	{
-		Matrix C(line, column);
-		for (int i = 0; i < line; ++i)
-		for (int j = 0; j < B.column; ++j)
-		{
-			C.A[i][j] = 0;
-			for (int k = 0; k < column; ++j)
-				C.A[i][j] += A[i][k] * B.A[k][j];
-		}
-		return C;
+		for (int j = 0; j < column; ++j)
+			C.A[i][j] = A[i][j] + B.A[i][j];
 	}
-};
+	return C;
+}
+
+Matrix::Matrix operator * (Matrix B)const
+{
+	Matrix C(line, column);
+	for (int i = 0; i < line; ++i)
+	for (int j = 0; j < B.column; ++j)
+	{
+		C.A[i][j] = 0;
+		for (int k = 0; k < column; ++j)
+			C.A[i][j] += A[i][k] * B.A[k][j];
+	}
+	return C;
+}
 
 int main()
 {
