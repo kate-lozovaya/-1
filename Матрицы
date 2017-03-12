@@ -130,7 +130,7 @@ Matrix Matrix::operator * (Matrix B)const
 	for (int j = 0; j < B.column; ++j)
 	{
 		C.A[i][j] = 0;
-		for (int k = 0; k < column; ++j)
+		for (int k = 0; k < column; ++k)
 		{
 			C.A[i][j] = C.A[i][j] + A[i][k] * B.A[k][j];
 		}
