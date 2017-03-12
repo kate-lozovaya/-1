@@ -19,7 +19,6 @@ public:
 	Matrix& operator= (const Matrix &C);
 	Matrix operator+ (Matrix B)const;
 	Matrix operator * (Matrix B)const;
-	const bool operator==(const Matrix &C);
 };
 
 Matrix::Matrix()
@@ -61,7 +60,7 @@ Matrix::~Matrix()
 	delete[]A;
 }
 
-Matrix::void scan(string filename)const
+void Matrix::scan(string filename)const
 {
 	ifstream fin;
 	fin.open(filename);
@@ -76,14 +75,15 @@ Matrix::void scan(string filename)const
 				if (!fin.eof())
 				{
 					fin >> A[i][j];
-				}else A[i][j] = 0;
+				}
+				else A[i][j] = 0;
 			}
 		}
 	}
 	fin.close();
 }
 
-Matrix::void print(ostream&steam)const
+void Matrix::print(ostream&steam)const
 {
 	for (int i = 0; i < line; ++i)
 	{
@@ -112,18 +112,7 @@ Matrix& Matrix:: operator= (const Matrix &C)
 	return *this;
 }
 
-const bool Matrix::operator==(const Matrix &C)
-{
-	for (int i = 0; i < line; ++i)
-	for (int j = 0; j < column; ++j)
-	{
-		if (A[i][j] == C.A[i][j])
-			return true;
-		return false;
-	}
-}
-
-Matrix::Matrix operator+ (Matrix B)const
+Matrix Matrix::operator+ (Matrix B)const
 {
 	Matrix C(line, column);
 	for (int i = 0; i < line; ++i)
@@ -134,15 +123,17 @@ Matrix::Matrix operator+ (Matrix B)const
 	return C;
 }
 
-Matrix::Matrix operator * (Matrix B)const
+Matrix Matrix::operator * (Matrix B)const
 {
-	Matrix C(line, column);
+	Matrix C(line, B.column);
 	for (int i = 0; i < line; ++i)
 	for (int j = 0; j < B.column; ++j)
 	{
 		C.A[i][j] = 0;
 		for (int k = 0; k < column; ++j)
-			C.A[i][j] += A[i][k] * B.A[k][j];
+		{
+			C.A[i][j] = C.A[i][j] + A[i][k] * B.A[k][j];
+		}
 	}
 	return C;
 }
