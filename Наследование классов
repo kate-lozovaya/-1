@@ -1,0 +1,91 @@
+#include <iostream>
+
+using namespace std;
+
+class A
+{
+    public:
+        void A_pub()
+        {
+            cout << "A";
+        }
+    protected:
+        void A_prot()
+        {
+            cout << "A";
+        }
+    private:
+        void A_priv()
+        {
+            cout << "A";
+        }
+};
+
+class B : public A
+{
+    void B_public()
+    {
+        A::A_pub();
+    }
+    void B_protected()
+    {
+        A::A_prot();
+    }
+    /*void B_private
+    {
+        A::A_priv();
+    }*/
+};
+
+class C : protected A
+{
+    void C_public()
+    {
+        A::A_pub();
+    }
+    void C_protected()
+    {
+        A::A_prot();
+    }
+    /*void C_private
+    {
+        A::A_priv();
+    }*/
+};
+
+class D : private A
+{
+    void D_public()
+    {
+        A::A_pub();
+    }
+    void D_protected()
+    {
+        A::A_prot();
+    }
+    /*void D_private
+    {
+        A::A_priv();
+    }*/
+};
+
+int main()
+{
+    A a;
+    B b;
+    C c;
+    D d;
+    a.A_pub();
+    //a.A_prot();
+    // a.A_priv();
+    b.A_pub();
+    //b.A_prot();
+    //b.A_priv();
+    //c.A_pub();
+    //c.A_prot();
+    //c.A_priv();
+    //d.A_pub();
+    //d.A_prot();
+    //d.A_priv();
+    return 0;
+}
