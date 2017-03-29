@@ -3,16 +3,22 @@
 #include <fstream>
 using namespace std;
 
+struct Node
+{
+	int x;
+	Node* left;
+	Node* right;
+};
+
 class Tree
 {
 private:
-	int x;
-	Tree *l, *r;
+	Node* root;
 public:
 	Tree();
-	void add(Tree* root, Tree* newEl);
-	void search(Tree* Tree, int x);
+	void add(Node* root, Node* newEl);
+	void search(Node* node, int x);
 	void fIn(string filename);
-	void fOut(Tree* Node)const;
-	void Out(Tree* Node)const;
+	void fOut(Node* node)const;
+	void Out(Node* node)const;
 };
