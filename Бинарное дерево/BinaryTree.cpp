@@ -5,75 +5,82 @@ Tree::Tree()
 	root->x = 0;
 	root->left = root->right = NULL;
 }
-void Tree::add(Node* root, Node* newEl)
+Tree::Tree(Node* node)
 {
-	if (root->x > newEl->x)
-	{
-		if (root->left != NULL)
-			add(root->left, newEl);
-		else root->left = newEl;
-	}
-	if (root->x <= newEl->x)
-	{
-		if (root->right != NULL)
-			add(root->right, newEl);
-		else root->right = newEl;
-	}
+	root->x = node->x;
+	root->left = node->left;
+	root->right = node->right;
 }
-void Tree::search(Node* node, int x)
+Tree::Tree(const Tree &node)
 {
-	if (node != NULL)
+	root->x = node.root->x;
+	root->left = node.root->left;
+	root->right = node.root->right;
+}
+void Tree::add(Node* newEl)
+{
+	Node* El = NULL;
+	Node* curEl = root;
+	while (curEl != NULL)
 	{
-		while (node->x != x)
-		{
-			if (node->x > x&&node->left != NULL)
-				search(node->left, x);
-			else
-			{
-				if (node->x < x&&node->right != NULL)
-					search(node->right, x);
-				else cout << "\nElement isn't find\n";
-			}
-		}
-		cout << "\nLeft: " << node->left << "\tX: " << node->x << "\tRight: " << node->right << endl;
+		El = curEl;
+		if (newEl->x >= curEl->x)
+			curEl = curEl->right;
+		else
+			curEl = curEl->left;
 	}
-	else cout << "\nThere isn't tree\n";
+	if (newEl->x >= El->x)
+		El->right = newEl;
+	else
+		El->left = newEl;
+}
+Tree Tree::search(int x)
+{
+	Node* curEl = root;
+	while (curEl != NULL)
+	{
+		if (curEl->x == x)
+			return curEl;
+		else
+		{
+			if (x >= curEl->x)
+				curEl = curEl->right;
+			else
+				curEl = curEl->left;
+		}
+	}
+	return nullptr;
 }
 void Tree::fIn(string filename)
 {
 	ifstream fin;
-	Node* root = NULL;
-	Node* newEl = NULL;
 	fin.open(filename);
+	Node* newEl = NULL;
 	if (!fin.is_open())
 		cout << "The file isn't find" << endl;
-	if (fin.eof())
-		root->x = 0;
+	if (fin.eof()) return;
 	else fin >> root->x;
 	while (!fin.eof())
 	{
 		fin >> newEl->x;
-		add(root, newEl);
+		add(newEl);
 	}
 	fin.close();
 }
-void Tree::fOut(Node* node)const
+void Tree::fOut(string filename)const
 {
 	ofstream fout;
-	string filename;
-	cout << "Enter the filename\t";
-	cin >> filename;
 	fout.open(filename);
-	if (node != NULL)
-		Out(node);
+	Out(root);
 	fout.close();
 }
-void Tree::Out(Node* node)const
+void Tree::Out(Node* curEl)const
 {
-	if (node != NULL)
+	curEl = root;
+	if (curEl != NULL)
 	{
-		Out(node->left);
-		cout << node->x;
-		Out(node->right);
+		cout << curEl->x;
+		Out(curEl->left);
+		Out(curEl->right);
 	}
 }
